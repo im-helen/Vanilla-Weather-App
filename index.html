@@ -11,34 +11,43 @@
       integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
       crossorigin="anonymous"
     />
-    <script
-      src="https://kit.fontawesome.com/730f3f3494.js"
-      crossorigin="anonymous"
-    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="src/style.css" />
   </head>
   <body>
     <div class="container">
-      <div class="forecastContainer">
-        <h1>New York, NY</h1>
-        <p>Tues April 11, 2023 6:54PM</p>
-        <div class="row">
-          <div class="col-3">
-            <div class="currentTempIcon"><i class="fa-regular fa-sun"></i></div>
-          </div>
-          <div class="col-3">
-            <div class="current-temperature">23</div>
-            <div class="description">Clear</div>
-          </div>
-          <div class="col-3">
-            <span class="units"><a href="#">°C</a> | <a href="#">°F</a></span>
-          </div>
-          <div class="col-3">
-            <ul>
-              <li>Feels Like: 22°</li>
-              <li>Humidity: 19%</li>
-              <li>Wind Speed: 11 km/h</li>
-            </ul>
+      <div class="weatherContainer-wrapper">
+        <div class="weatherContainer">
+          <h1>New York, NY</h1>
+          <div class="currentTime">Tues April 11, 2023 6:54PM</div>
+          <div class="row">
+            <div class="col-3">
+              <div class="currentWeatherIcon">
+                <i class="fa-regular fa-sun"></i>
+              </div>
+            </div>
+            <div class="col-2">
+              <h2 class="current-temperature">23</h2>
+              <div class="description">Clear</div>
+            </div>
+            <div class="col-2">
+              <span class="units"
+                ><a href="#" id="celsius">°C</a> |
+                <a href="#" id="fahrenheit">°F</a></span
+              >
+            </div>
+            <div class="col-4">
+              <ul class="weatherDetails">
+                <li>Feels Like: 22°</li>
+                <li>Humidity: 19%</li>
+                <li>Wind Speed: 11 km/h</li>
+              </ul>
+            </div>
           </div>
         </div>
         <small
@@ -47,8 +56,12 @@
           >
           by Helen Wong</small
         >
-        <script src="src/script.js"></script>
       </div>
     </div>
+    <script
+      src="https://kit.fontawesome.com/730f3f3494.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="src/script.js"></script>
   </body>
 </html>

@@ -1,0 +1,77 @@
+body {
+  font-family: "Urbanist", sans-serif;
+  color: #404969;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1 {
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+li {
+  line-height: 19px;
+  list-style: none;
+}
+
+ul {
+  margin: 0 auto;
+  padding: 0;
+}
+
+h1,
+.currentTime {
+  position: relative;
+  left: 5%;
+}
+
+.weatherContainer-wrapper {
+  margin: 0 auto;
+  max-width: 650px;
+  padding: 20px;
+}
+.weatherContainer {
+  border: 1px solid #404969;
+  border-radius: 5px;
+  margin: 0 auto;
+  max-width: 650px;
+  padding: 20px;
+}
+.currentWeatherIcon {
+  font-size: 60px;
+  left: 45%;
+  position: relative;
+  top: 10%;
+  width: 60px;
+}
+
+.description {
+  position: relative;
+  top: 10%;
+}
+
+.current-temperature {
+  font-size: 50px;
+  margin-bottom: 0;
+  position: relative;
+  top: 15%;
+}
+
+.units {
+  left: -38%;
+  position: relative;
+  top: 24%;
+}
+
+.weatherDetails {
+  left: 11%;
+  position: relative;
+  top: 40%;
+}
