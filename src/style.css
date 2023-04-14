@@ -46,9 +46,9 @@ h1,
 }
 .currentWeatherIcon {
   font-size: 60px;
-  left: 45%;
+  left: 30%;
   position: relative;
-  top: 10%;
+  top: 3%;
   width: 60px;
 }
 
@@ -75,4 +75,19 @@ h1,
   left: 11%;
   position: relative;
   top: 40%;
+}
+
+#search-form {
+  position: relative;
+  left: 50%;
+}
+
+.searchButton,
+.currentLocationButton {
+  border-radius: 50%;
+}
+
+.searchButton {
+  position: relative;
+  left: -26%;
 }

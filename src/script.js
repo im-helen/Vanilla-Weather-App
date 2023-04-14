@@ -59,8 +59,33 @@ function displayTemperature(response) {
     .setAttribute("alt", response.data.condition.description);
 }
 
-let apiKey = "56a8a52fdb532o964ddd1d934709d5bt";
-let city = "New York";
-let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+function search(city) {
+  let apiKey = "56a8a52fdb532o964ddd1d934709d5bt";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
-axios.get(apiUrl).then(displayTemperature);
+  axios.get(apiUrl).then(displayTemperature);
+}
+
+function runSearchForm(event) {
+  event.preventDefault();
+  let cityInput = document.querySelector("#city-input");
+  search(cityInput.value);
+}
+
+function showPosition(position) {
+  let apiKey = "56a8a52fdb532o964ddd1d934709d5bt";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${position.coords.longitude}&lat=${position.coords.latitude}&key=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(displayTemperature);
+}
+
+function runNavigator() {
+  navigator.geolocation.getCurrentPosition(showPosition);
+}
+
+search("Tokyo");
+
+let form = document.querySelector("#search-form");
+let currentLocationButton = document.querySelector("#current-location-button");
+form.addEventListener("submit", runSearchForm);
+currentLocationButton.addEventListener("click", runNavigator);
