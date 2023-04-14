@@ -52,12 +52,13 @@ h1,
   width: 60px;
 }
 
-.description {
+.weatherDescription {
   position: relative;
+  text-transform: capitalize;
   top: 10%;
 }
 
-.current-temperature {
+.currentTemperature {
   font-size: 50px;
   margin-bottom: 0;
   position: relative;

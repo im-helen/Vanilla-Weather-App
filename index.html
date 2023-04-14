@@ -11,6 +11,7 @@
       integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
       crossorigin="anonymous"
     />
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
     <link
@@ -23,8 +24,8 @@
     <div class="container">
       <div class="weatherContainer-wrapper">
         <div class="weatherContainer">
-          <h1>New York, NY</h1>
-          <div class="currentTime">Tues April 11, 2023 6:54PM</div>
+          <h1 id="city">New York, NY</h1>
+          <div class="currentTime" id="date"></div>
           <div class="row">
             <div class="col-3">
               <div class="currentWeatherIcon">
@@ -32,8 +33,8 @@
               </div>
             </div>
             <div class="col-2">
-              <h2 class="current-temperature">23</h2>
-              <div class="description">Clear</div>
+              <h2 class="currentTemperature" id="current-temp-display"></h2>
+              <div class="weatherDescription" id="description"></div>
             </div>
             <div class="col-2">
               <span class="units"
@@ -43,9 +44,9 @@
             </div>
             <div class="col-4">
               <ul class="weatherDetails">
-                <li>Feels Like: 22°</li>
-                <li>Humidity: 19%</li>
-                <li>Wind Speed: 11 km/h</li>
+                <li>Feels Like: <span id="feels-like"></span>°</li>
+                <li>Humidity: <span id="humidity"></span>%</li>
+                <li>Wind Speed: <span id="wind-speed"> </span> km/h</li>
               </ul>
             </div>
           </div>
