@@ -25,6 +25,38 @@ function formatDate(timestamp) {
   return `${day} ${month} ${date}, ${year}  ${hours}:${minutes}`;
 }
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let days = ["Wed", "Thurs", "Fri", "Sat", "Sun"];
+
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+              <div class="col-2 future-card">
+                <div class="card" style="width: 7rem">
+                  <div class="card-body forecast-body">
+                    <h5 class="card-title day">${day}</h5>
+                    <p class="forecast-date">11</p>
+                    <p class="card-icon futureforecast-icons">
+                      <i class="fa-solid fa-cloud-showers-heavy"></i>
+                    </p>
+                  </div>
+                  <div class="card-body forecast-temperatures">
+                    <div class="row forecast-temperature-row">
+                      <div class="col forecast-temp-max">44°</div>
+                      <div class="col forecast-temp-min">32°</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 function displayTemperature(response) {
   celsiusTemperature = response.data.temperature.current;
   feelsLikeCelsius = response.data.temperature.feels_like;
@@ -111,5 +143,7 @@ celsiusLink.addEventListener("click", displayCelsius);
 currentLocationButton.addEventListener("click", runNavigator);
 fahrenheitLink.addEventListener("click", displayFahrenheit);
 form.addEventListener("submit", runSearchForm);
+
+displayForecast();
 
 search("New York");

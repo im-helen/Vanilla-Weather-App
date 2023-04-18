@@ -90,13 +90,13 @@ h1,
   border: 1px solid #404969;
   border-radius: 5px;
   margin: 0 auto;
-  max-width: 650px;
+  max-width: 680px;
   padding: 20px;
 }
 
 .weatherContainer-wrapper {
   margin: 0 auto;
-  max-width: 650px;
+  max-width: 680px;
   padding: 20px;
 }
 
@@ -133,12 +133,14 @@ h1,
 }
 
 .future-forecast {
+  display: flex;
   margin-top: 4%;
   text-align: center;
 }
 
 .future-card {
-  width: 18%;
+  margin-right: 5px;
+  width: 20%;
   transition: all 200ms ease-in-out;
   cursor: pointer;
 }
