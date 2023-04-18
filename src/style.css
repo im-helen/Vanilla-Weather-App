@@ -111,3 +111,46 @@ h1,
   position: relative;
   top: 23%;
 }
+
+.forecast-date,
+.forecast-temp-max,
+.forecast-temp-min {
+  font-size: 12px;
+}
+
+.day {
+  font-size: 14px;
+}
+
+.forecast-temp-max {
+  font-weight: bold;
+}
+
+.futureforecast-icons {
+  font-size: 30px;
+  margin-bottom: -16%;
+  text-align: center;
+}
+
+.future-forecast {
+  margin-top: 4%;
+  text-align: center;
+}
+
+.future-card {
+  width: 18%;
+  transition: all 200ms ease-in-out;
+  cursor: pointer;
+}
+
+.future-card:hover {
+  transform: scale(1.1);
+}
+
+.forecast-temperature-row {
+  text-align: center;
+}
+
+.forecast-temperatures {
+  padding: 3px;
+}
