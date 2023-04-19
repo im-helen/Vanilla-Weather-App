@@ -1,10 +1,11 @@
 function formatDate(timestamp) {
-  let now = new Date(timestamp);
-  let hours = ("0" + now.getHours()).slice(-2);
-  let minutes = ("0" + now.getMinutes()).slice(-2);
+  let currentTime = new Date(timestamp);
+  let hours = ("0" + (currentTime.getHours() % 12)).slice(-2);
+  hours = hours || 12;
+  let minutes = ("0" + currentTime.getMinutes()).slice(-2);
   let days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
-  let day = days[now.getDay()];
-  let date = now.getDate();
+  let day = days[currentTime.getDay()];
+  let date = currentTime.getDate();
   let months = [
     "Jan",
     "Feb",
@@ -19,10 +20,12 @@ function formatDate(timestamp) {
     "Nov",
     "Dec",
   ];
-  let month = months[now.getMonth()];
-  let year = now.getFullYear();
+  let month = months[currentTime.getMonth()];
+  let year = currentTime.getFullYear();
 
-  return `${day} ${month} ${date}, ${year}  ${hours}:${minutes}`;
+  return `${day} ${month} ${date}, ${year}  ${hours}:${minutes}  ${
+    currentTime.getHours() < 12 ? "AM" : "PM"
+  }`;
 }
 
 function formatForecastDay(timestamp) {
@@ -40,18 +43,17 @@ function formatForecastDate(timestamp) {
 
 function displayForecast(response) {
   console.log(response);
-  console.log(response.data.daily);
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
 
-  let forecastHTML = `<div class="row g-1">`;
+  let forecastHTML = `<div class="row">`;
   forecast.forEach(function (forecastDay, index) {
     if (index < 6 && index !== 0) {
       forecastHTML =
         forecastHTML +
         `
               <div class="col-2 future-card">
-                <div class="card" style="width: 7rem">
+                <div class="card" style="width: 6rem">
                   <div class="card-body forecast-body">
                     <h5 class="card-title day">${formatForecastDay(
                       forecastDay.time
@@ -88,26 +90,26 @@ function fetchForecast(coordinates) {
   console.log(coordinates);
 
   let apiKey = "56a8a52fdb532o964ddd1d934709d5bt";
-  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=metric`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=imperial`;
 
   axios.get(apiUrl).then(displayForecast);
 }
 
 function displayTemperature(response) {
   console.log(response);
-  celsiusTemperature = response.data.temperature.current;
-  feelsLikeCelsius = response.data.temperature.feels_like;
+  fahrenheitTemperature = response.data.temperature.current;
+  feelsLike = response.data.temperature.feels_like;
   document.querySelector("#city").innerHTML = response.data.city;
-  document.querySelector("#current-temperature").innerHTML =
-    Math.round(celsiusTemperature);
+  document.querySelector("#current-temperature").innerHTML = Math.round(
+    fahrenheitTemperature
+  );
   document.querySelector("#description").innerHTML =
     response.data.condition.description;
-  document.querySelector("#feels-like").innerHTML =
-    Math.round(feelsLikeCelsius);
+  document.querySelector("#feels-like").innerHTML = Math.round(feelsLike);
   document.querySelector("#humidity").innerHTML =
     response.data.temperature.humidity;
   document.querySelector("#wind-speed").innerHTML = Math.round(
-    response.data.wind.speed * 3.6
+    response.data.wind.speed
   );
   document.querySelector("#date").innerHTML = formatDate(
     response.data.time * 1000
@@ -124,7 +126,7 @@ function displayTemperature(response) {
 
 function search(city) {
   let apiKey = "56a8a52fdb532o964ddd1d934709d5bt";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
 
   axios.get(apiUrl).then(displayTemperature);
 }
@@ -138,7 +140,7 @@ function runSearchForm(event) {
 
 function showPosition(position) {
   let apiKey = "56a8a52fdb532o964ddd1d934709d5bt";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${position.coords.longitude}&lat=${position.coords.latitude}&key=${apiKey}&units=metric`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${position.coords.longitude}&lat=${position.coords.latitude}&key=${apiKey}&units=imperial`;
 
   axios.get(apiUrl).then(displayTemperature);
 }
@@ -148,39 +150,10 @@ function runNavigator(event) {
   navigator.geolocation.getCurrentPosition(showPosition);
 }
 
-function displayFahrenheit(event) {
-  event.preventDefault();
-  let currentTempElement = document.querySelector("#current-temperature");
-  let feelsLikeElement = document.querySelector("#feels-like");
-  let feelsLikeFahrenheit = (feelsLikeCelsius * 9) / 5 + 32;
-  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  currentTempElement.innerHTML = Math.round(fahrenheitTemperature);
-  feelsLikeElement.innerHTML = Math.round(feelsLikeFahrenheit);
-}
-
-function displayCelsius(event) {
-  event.preventDefault();
-  let currentTempElement = document.querySelector("#current-temperature");
-  let feelsLikeElement = document.querySelector("#feels-like");
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-  currentTempElement.innerHTML = Math.round(celsiusTemperature);
-  feelsLikeElement.innerHTML = Math.round(feelsLikeCelsius);
-}
-
-let celsiusTemperature = null;
-let feelsLikeCelsius = null;
-
-let celsiusLink = document.querySelector("#celsius-link");
 let currentLocationButton = document.querySelector("#current-location-button");
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
 let form = document.querySelector("#search-form");
 
-celsiusLink.addEventListener("click", displayCelsius);
 currentLocationButton.addEventListener("click", runNavigator);
-fahrenheitLink.addEventListener("click", displayFahrenheit);
 form.addEventListener("submit", runSearchForm);
 
 search("New York");
