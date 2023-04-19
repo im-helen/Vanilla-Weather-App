@@ -25,39 +25,76 @@ function formatDate(timestamp) {
   return `${day} ${month} ${date}, ${year}  ${hours}:${minutes}`;
 }
 
-function displayForecast() {
-  let forecastElement = document.querySelector("#forecast");
-  let days = ["Wed", "Thurs", "Fri", "Sat", "Sun"];
+function formatForecastDay(timestamp) {
+  let currentTime = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+  let day = days[currentTime.getDay()];
+  return `${day}`;
+}
 
-  let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+function formatForecastDate(timestamp) {
+  let currentTime = new Date(timestamp * 1000);
+  let date = currentTime.getDate();
+  return `${date}`;
+}
+
+function displayForecast(response) {
+  console.log(response);
+  console.log(response.data.daily);
+  let forecast = response.data.daily;
+  let forecastElement = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row g-1">`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6 && index !== 0) {
+      forecastHTML =
+        forecastHTML +
+        `
               <div class="col-2 future-card">
                 <div class="card" style="width: 7rem">
                   <div class="card-body forecast-body">
-                    <h5 class="card-title day">${day}</h5>
-                    <p class="forecast-date">11</p>
+                    <h5 class="card-title day">${formatForecastDay(
+                      forecastDay.time
+                    )}</h5>
+                    <p class="forecast-date">${formatForecastDate(
+                      forecastDay.time
+                    )}</p>
                     <p class="card-icon futureforecast-icons">
-                      <i class="fa-solid fa-cloud-showers-heavy"></i>
+                      <img src=${
+                        forecastDay.condition.icon_url
+                      } alt="#s" id="forecast-icon" width="42" />
                     </p>
                   </div>
                   <div class="card-body forecast-temperatures">
                     <div class="row forecast-temperature-row">
-                      <div class="col forecast-temp-max">44°</div>
-                      <div class="col forecast-temp-min">32°</div>
+                      <div class="col forecast-temp-max">${Math.round(
+                        forecastDay.temperature.maximum
+                      )}°</div>
+                      <div class="col forecast-temp-min">${Math.round(
+                        forecastDay.temperature.minimum
+                      )}°</div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>`;
+            `;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
 
+function fetchForecast(coordinates) {
+  console.log(coordinates);
+
+  let apiKey = "56a8a52fdb532o964ddd1d934709d5bt";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function displayTemperature(response) {
+  console.log(response);
   celsiusTemperature = response.data.temperature.current;
   feelsLikeCelsius = response.data.temperature.feels_like;
   document.querySelector("#city").innerHTML = response.data.city;
@@ -81,6 +118,8 @@ function displayTemperature(response) {
   document
     .querySelector("#current-temp-icon")
     .setAttribute("alt", response.data.condition.description);
+
+  fetchForecast(response.data.coordinates);
 }
 
 function search(city) {
@@ -143,7 +182,5 @@ celsiusLink.addEventListener("click", displayCelsius);
 currentLocationButton.addEventListener("click", runNavigator);
 fahrenheitLink.addEventListener("click", displayFahrenheit);
 form.addEventListener("submit", runSearchForm);
-
-displayForecast();
 
 search("New York");
