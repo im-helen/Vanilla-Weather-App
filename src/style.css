@@ -1,6 +1,6 @@
 body {
   background: #fafafa;
-  color: #404969;
+  color: #2f0f5d;
   font-family: "Urbanist", sans-serif;
 }
 
@@ -31,6 +31,11 @@ h1,
 .currentTime {
   position: relative;
   left: 5%;
+}
+
+.card {
+  background: border-box;
+  border: 1px solid #c9bbcf;
 }
 
 .currentTemperature,
@@ -64,6 +69,12 @@ h1,
   margin-bottom: 0;
 }
 
+.forecast-temp-max,
+.forecast-temp-min {
+  font-size: 14px;
+  color: #624f82;
+}
+
 .forecast-temp-max {
   font-weight: bold;
 }
@@ -77,7 +88,6 @@ h1,
 }
 
 .future-card {
-  background: transparent;
   width: 20%;
   transition: all 200ms ease-in-out;
   cursor: pointer;
@@ -129,15 +139,15 @@ h1,
 
 .weatherContainer {
   background: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
-  border: 1px solid #404969;
   border-radius: 5px;
   margin: 0 auto;
   max-width: 680px;
-  padding: 20px;
+  padding: 20px 35px 35px;
 }
 
 .weatherContainer-wrapper {
   margin: 0 auto;
+  margin-top: 30px;
   max-width: 680px;
   padding: 20px;
 }

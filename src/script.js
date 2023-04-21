@@ -1,7 +1,7 @@
 function formatDate(timestamp) {
   let currentTime = new Date(timestamp);
-  let hours = ("0" + (currentTime.getHours() % 12)).slice(-2);
-  hours = hours || 12;
+  let hours = currentTime.getHours();
+  hours = hours % 12 || 12;
   let minutes = ("0" + currentTime.getMinutes()).slice(-2);
   let days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
   let day = days[currentTime.getDay()];
@@ -23,7 +23,7 @@ function formatDate(timestamp) {
   let month = months[currentTime.getMonth()];
   let year = currentTime.getFullYear();
 
-  return `${day} ${month} ${date}, ${year}  ${hours}:${minutes}  ${
+  return `${day} ${month} ${date}, ${year}  ${hours}:${minutes}    ${
     currentTime.getHours() < 12 ? "AM" : "PM"
   }`;
 }
@@ -42,7 +42,6 @@ function formatForecastDate(timestamp) {
 }
 
 function displayForecast(response) {
-  console.log(response);
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
 
@@ -64,7 +63,7 @@ function displayForecast(response) {
                     <p class="card-icon futureforecast-icons">
                       <img src=${
                         forecastDay.condition.icon_url
-                      } alt="#s" id="forecast-icon" width="42" />
+                      } alt="#s" id="forecast-icon" width="50" />
                     </p>
                   </div>
                   <div class="card-body forecast-temperatures">
@@ -87,8 +86,6 @@ function displayForecast(response) {
 }
 
 function fetchForecast(coordinates) {
-  console.log(coordinates);
-
   let apiKey = "56a8a52fdb532o964ddd1d934709d5bt";
   let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=imperial`;
 
@@ -96,7 +93,6 @@ function fetchForecast(coordinates) {
 }
 
 function displayTemperature(response) {
-  console.log(response);
   fahrenheitTemperature = response.data.temperature.current;
   feelsLike = response.data.temperature.feels_like;
   document.querySelector("#city").innerHTML = response.data.city;
