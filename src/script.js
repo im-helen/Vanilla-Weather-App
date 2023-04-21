@@ -61,9 +61,9 @@ function displayForecast(response) {
                       forecastDay.time
                     )}</p>
                     <p class="card-icon futureforecast-icons">
-                      <img src=${
-                        forecastDay.condition.icon_url
-                      } alt="#s" id="forecast-icon" width="50" />
+                      <img src=${forecastDay.condition.icon_url} alt=${
+          forecastDay.condition.description
+        } id="forecast-icon" width="50" />
                     </p>
                   </div>
                   <div class="card-body forecast-temperatures">
